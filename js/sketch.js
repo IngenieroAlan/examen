@@ -1,18 +1,24 @@
-let timeInput;
-let updateButton;
+let clockLp, clockCdmx, clockBc;
+let time;
+
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    timeInput = createInput();
-    timeInput.position(50, 50);
 
-    updateButton = createButton('Actualizar');
-    updateButton.position(timeInput.x + timeInput.width + 10, 50);
+    clockLp = new Clock(0, 0, "lpz", 150, 250, 250);
+    clockCdmx = new Clock(0, 0, "cdmx", 150, 650, 250);
+
+    clockBc = new Clock(0, 0, "var", 150, 1050, 250);
+    time = document.getElementById("time");
 }
 function draw() {
     background("#d9d9d9");
-    strokeWeight(2);
-    //lineaBres(10, 10, 50, 70);
-    //algoritmoPM(50, 100, 100);
-    text(timeInput.value(), 50, 100);
+    clockLp.externalHour = time.value;
+    clockLp.draw();
+
+    clockCdmx.externalHour = time.value;
+    clockCdmx.draw();
+
+    clockBc.externalHour = time.value;
+    clockBc.draw();
 }

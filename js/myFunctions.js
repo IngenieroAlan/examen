@@ -92,3 +92,29 @@ function lineaPP(x1,y1,x2,y2){
     }
   }
 }
+function algoritmoPM(r, xc,yc){
+  let x = 0, y = r;
+  let pk = 5/4 - r;
+  point(xc + x, yc + y);
+  trazarSimetria(x, y,xc,yc);
+  while (x < y) {
+      x++;
+      if (pk < 0) {
+          pk += 2 * x + 1;
+      } else {
+          y--;
+          pk += 2 * (x - y) + 1;
+      }
+      trazarSimetria(x, y,xc,yc);
+  }
+}
+function trazarSimetria(x, y,xc,yc) {
+  point(xc + x, yc + y);
+  point(xc + y, yc + x);
+  point(xc - x, yc + y);
+  point(xc - y, yc + x);
+  point(xc + x, yc - y);
+  point(xc + y, yc - x);
+  point(xc - x, yc - y);
+  point(xc - y, yc - x);
+}

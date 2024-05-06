@@ -4,6 +4,7 @@ class Clock {
         this.hour = externalHour;
         this.timezone = timezone;
         this.minutes = minutes;
+        this.seconds = new Date().getSeconds();
         this.r = r;
         this.x = x;
         this.y = y;
@@ -22,6 +23,10 @@ class Clock {
         }
     }
     draw() {
+        if(this.seconds != new Date().getSeconds() ){
+            this.seconds = new Date().getSeconds();
+        }
+
         switch (this.timezone) {
             case "lpz":
                 algoritmoPM(this.r, this.x, this.y);

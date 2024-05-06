@@ -1,9 +1,14 @@
 let clockLp, clockCdmx, clockBc;
 let time;
-
-
+let initTime = new Date().toLocaleString('en-US', { timeZone: 'America/Mazatlan' });
+let initTimeValues = {
+    hour: new Date(initTime).getHours(),
+    minutes: new Date(initTime).getMinutes(),
+    seconds: new Date(initTime).getSeconds(),
+};
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    console.log('Hora LPZ: '+initTime+'\nHora:' + initTimeValues.hour + '\nMinutos:' + initTimeValues.minutes + '\nSeconds:' + initTimeValues.seconds);
 
     clockLp = new Clock(0, 0, "lpz", 150, 250, 250);
     clockCdmx = new Clock(0, 0, "cdmx", 150, 650, 250);

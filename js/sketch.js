@@ -8,12 +8,16 @@ let initTimeValues = {
 };
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    console.log('Hora LPZ: '+initTime+'\nHora:' + initTimeValues.hour + '\nMinutos:' + initTimeValues.minutes + '\nSeconds:' + initTimeValues.seconds);
-
-    clockLp = new Clock(0, 0, "lpz", 150, 250, 250);
-    clockCdmx = new Clock(0, 0, "cdmx", 150, 650, 250);
-
-    clockBc = new Clock(0, 0, "var", 150, 1050, 250);
+    console.log('Hora LPZ: '
+    + initTime+'\nHora:'
+    + initTimeValues.hour + '\nMinutos:'
+    + initTimeValues.minutes + '\nSeconds:'
+    + initTimeValues.seconds);
+    
+    clockLp = new Clock(time, "lpz", 150, 250, 250);
+    clockCdmx = new Clock(time, "cdmx", 150, 650, 250);
+    
+    clockBc = new Clock(time, "var", 150, 1050, 250);
     time = document.getElementById("time");
 }
 function draw() {

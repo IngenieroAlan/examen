@@ -42,7 +42,6 @@ let initTimeValues = {
     seconds: new Date(initTime).getSeconds(),
 };
 let hourH, minutesM, secondsS;
-
 function setup() {
     createCanvas(600, 400);
     angleMode(DEGREES);
@@ -65,7 +64,6 @@ function setup() {
 
 function draw() {
     background(220);
-    console.log(time.value);
     drawClockLpz((time.value != undefined && time.value) ? time.value : parseTime(initTimeValues.hour)+':'+parseTime(initTimeValues.minutes));
 }
 

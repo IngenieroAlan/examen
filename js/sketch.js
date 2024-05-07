@@ -47,8 +47,9 @@ function setup() {
     angleMode(DEGREES);
 
     // Center of the clock
-    centerX = 100;
-    centerY = 100;
+    
+    centerXlpz = 100;
+    centerYlpz = 100;
 
     // Length of the hands
     hourLength = 60;
@@ -64,10 +65,13 @@ function setup() {
 
 function draw() {
     background(220);
-    drawClockLpz((time.value != undefined && time.value) ? time.value : parseTime(initTimeValues.hour)+':'+parseTime(initTimeValues.minutes));
+    let timerAux = (time.value != undefined && time.value) ? time.value : parseTime(initTimeValues.hour)+':'+parseTime(initTimeValues.minutes);
+    drawClockLpz(timerAux,100,100);
+    drawClockCDMX(timerAux,300,100);
+    drawClockBC(timerAux,500,100);
 }
 
-function drawClockHand(timeValue, timeMax, handLength, handWidth) {
+function drawClockHand(timeValue, timeMax, handLength, handWidth, centerX, centerY) {
     let timeAngle = map(timeValue, 0, timeMax, 0, 360) - 90;
     let xEnd = centerX + handLength * cos(timeAngle);
     let yEnd = centerY + handLength * sin(timeAngle);
@@ -90,9 +94,23 @@ function drawClockHand(timeValue, timeMax, handLength, handWidth) {
     }
 }
 
-function drawClockLpz( time) {
+function drawClockLpz(time,centerX,centerY) {
     let [currentHour, currentMinute] = time.split(":");
-    drawClockHand(currentHour, 12, hourLength, hourWidth);
-    drawClockHand(currentMinute, 60, minuteLength, minuteWidth);
-    drawClockHand(new Date().getSeconds(), 60, secondLength, secondWidth);
+    drawClockHand(currentHour, 12, hourLength, hourWidth,centerX, centerY);
+    drawClockHand(currentMinute, 60, minuteLength, minuteWidth,centerX, centerY);
+    drawClockHand(new Date().getSeconds(), 60, secondLength, secondWidth,centerX, centerY);
+}
+function drawClockCDMX(time, centerX,centerY) {
+    let [currentHour, currentMinute] = time.split(":");
+    currentHour = parseTime(parseInt(currentHour)+1);
+    drawClockHand(currentHour, 12, hourLength, hourWidth,centerX, centerY);
+    drawClockHand(currentMinute, 60, minuteLength, minuteWidth,centerX, centerY);
+    drawClockHand(new Date().getSeconds(), 60, secondLength, secondWidth,centerX, centerY);
+}
+function drawClockBC(time, centerX,centerY) {
+    let [currentHour, currentMinute] = time.split(":");
+    currentHour = parseTime(parseInt(currentHour)+9);
+    drawClockHand(currentHour, 12, hourLength, hourWidth,centerX, centerY);
+    drawClockHand(currentMinute, 60, minuteLength, minuteWidth,centerX, centerY);
+    drawClockHand(new Date().getSeconds(), 60, secondLength, secondWidth,centerX, centerY);
 }

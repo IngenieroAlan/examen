@@ -29,36 +29,81 @@ class Clock {
                 break;
         }
     }
-    draw() {
+    /*addSeconds(){
         if(this.seconds != new Date().getSeconds() ){
             this.seconds = new Date().getSeconds();
+            if(this.seconds == 0 && this.addSecond == false){
+                this.addSecond = true;
+                if(this.minutes == 60){
+                    this.minutes = 0;
+                    this.hour++;
+                    this.addSecond = false;
+                }
+                this.minutes++;
+                this.addSecond =false;
+            }
         }
+    }
+    */
+    addSeconds() {
+        let currentSeconds = new Date().getSeconds();
+    
+        if (this.seconds !== currentSeconds) {
+            this.seconds = currentSeconds;
+            
+            if (this.seconds === 0) {
+                
+                if (this.minutes === '59') {
+                    this.minutes = '00';
+                    if (this.hour === 23) {
+                        this.hour = '00';
+                    } else {
+                        this.hour = ('0' + (parseInt(this.hour) + 1)).slice(-2);
+                    }
+                } else {
+                    console.log(this.minutes);
+                    this.minutes = ('0' + (parseInt(this.minutes) + 1)).slice(-2);
+                }
+                console.log(this.minutes); //Si se suma pero le vale y lo regresa al valor anterior...
+            }
+        }
+    }
+    
+    
+    draw() {  
+        this.addSeconds();
         this.getTime();
-
+        algoritmoPM(this.r, this.x, this.y);
         switch (this.timezone) {
             case "lpz":
-                algoritmoPM(this.r, this.x, this.y);
                 if (this.externalHour) {
                     this.getTime();
-                    text(((this.hour<10)?'0'+this.hour:this.hour)+":"+this.minutes, 250, 500)
+                    text(((this.hour<10 && this.hour!=0)?'0'+this.hour:this.hour)
+                        +":"+this.minutes+":"
+                        +((this.seconds<10)?'0'+this.seconds:this.seconds),
+                        250, 500)
                 }
-                text("La Paz", 250, 550)
+                text("La Paz", 235, 550)
                 break;
             case "cdmx":
-                algoritmoPM(this.r, this.x, this.y);
                 if (this.externalHour) {
                     this.getTime();
-                    text(((this.hour<10)?'0'+this.hour:this.hour)+":"+this.minutes, 650, 500)
+                    text(((this.hour<10)?'0'+this.hour:this.hour)
+                    +":"+this.minutes+":"
+                    +((this.seconds<10)?'0'+this.seconds:this.seconds),
+                    650, 500)
                 }
-                text("Ciudad de Mexico", 650, 550)
+                text("Ciudad de Mexico", 600, 550)
                 break;
             case "var":
-                algoritmoPM(this.r, this.x, this.y);
                 if (this.externalHour) {
                     this.getTime();
-                    text(((this.hour<10)?'0'+this.hour:this.hour)+":"+this.minutes, 1050, 500)
+                    text(((this.hour<10)?'0'+this.hour:this.hour)
+                    +":"+this.minutes+":"
+                    +((this.seconds<10)?'0'+this.seconds:this.seconds),
+                    1050, 500)
                 }
-                text("Varcelona", 1050, 550)
+                text("Barcelona", 1028, 550)
                 break;
         }
     }

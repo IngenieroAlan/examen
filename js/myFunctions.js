@@ -118,3 +118,9 @@ function trazarSimetria(x, y,xc,yc) {
   point(xc - x, yc - y);
   point(xc - y, yc - x);
 }
+function parseTime(time){
+  if(time<10){
+    return '0'+time;
+  }
+  return time;
+}

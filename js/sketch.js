@@ -46,11 +46,6 @@ function setup() {
     createCanvas(600, 400);
     angleMode(DEGREES);
 
-    // Center of the clock
-
-    centerXlpz = 100;
-    centerYlpz = 100;
-
     // Length of the hands
     hourLength = 40;
     minuteLength = 60;
@@ -65,9 +60,9 @@ function setup() {
 
 function draw() {
     background(220);
-    let timerAux = (time.value != undefined && time.value) ? time.value : parseTime(initTimeValues.hour) + ':' + parseTime(initTimeValues.minutes);
+    let timerAux = (time.value != undefined && time.value != '') ? time.value : parseTime(initTimeValues.hour) + ':' + parseTime(initTimeValues.minutes);
     drawClockLpz(timerAux, 100, 100);
-    drawClockCDMX(timerAux, 300, 100);
+    //drawClockCDMX(timerAux, 300, 100);
     drawClockBC(timerAux, 500, 100);
 }
 
@@ -101,19 +96,33 @@ function drawClockLpz(time, centerX, centerY) {
     drawClockHandDDA(new Date().getSeconds(), 60, secondLength, secondWidth, centerX, centerY);
     algoritmoPM(90, centerX, centerY-10);
 }
-function drawClockCDMX(time, centerX, centerY) {
+/*function drawClockCDMX(time, centerX, centerY) {
     let [currentHour, currentMinute] = time.split(":");
     currentHour = parseTime(parseInt(currentHour) + 1);
     drawClockHand(currentHour, 12, hourLength, hourWidth, centerX, centerY);
     drawClockHand(currentMinute, 60, minuteLength, minuteWidth, centerX, centerY);
     drawClockHand(new Date().getSeconds(), 60, secondLength, secondWidth, centerX, centerY);
     algoritmoPM(90, centerX, centerY-10);
-}
+}*/
 function drawClockBC(time, centerX, centerY) {
     let [currentHour, currentMinute] = time.split(":");
-    currentHour = parseTime(parseInt(currentHour) + 9);
-    drawClockHand(currentHour, 12, hourLength, hourWidth, centerX, centerY);
-    drawClockHand(currentMinute, 60, minuteLength, minuteWidth, centerX, centerY);
-    drawClockHand(new Date().getSeconds(), 60, secondLength, secondWidth, centerX, centerY);
+    currentHour = parseInt(currentHour) + 9;
+    currentHour = (currentHour > 24) ? currentHour - 24 : currentHour;
+    currentMinute = parseInt(currentMinute);
+
+    let hourAngle = map(currentHour % 12, 0, 12, 0, 360) - 90;
+    let hourEndX = centerX + hourLength * cos(hourAngle);
+    let hourEndY = centerY + hourLength * sin(hourAngle);
+    lineaBres(centerX, centerY, parseInt(hourEndX), parseInt(hourEndY));
+
+    let minuteAngle = map(currentMinute, 0, 60, 0, 360) - 90;
+    let minuteEndX = centerX + minuteLength * cos(minuteAngle);
+    let minuteEndY = centerY + minuteLength * sin(minuteAngle);
+    lineaBres(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
+
+    let secondAngle = map(new Date().getSeconds(), 0, 60, 0, 360) - 90;
+    let secondEndX = centerX + secondLength * cos(secondAngle);
+    let secondEndY = centerY + secondLength * sin(secondAngle);
+    lineaBres(centerX, centerY, parseInt(secondEndX), parseInt(secondEndY));
     algoritmoPM(90, centerX, centerY-10);
 }

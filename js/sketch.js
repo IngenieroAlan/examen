@@ -35,7 +35,12 @@ let centerX, centerY;
 let time;
 let hourLength, minuteLength, secondLength;
 let hourWidth, minuteWidth, secondWidth;
-
+let initTime = new Date().toLocaleString('en-US', { timeZone: 'America/Mazatlan' });
+let initTimeValues = {
+    hour: new Date(initTime).getHours(),
+    minutes: new Date(initTime).getMinutes(),
+    seconds: new Date(initTime).getSeconds(),
+};
 let hourH, minutesM, secondsS;
 
 function setup() {
@@ -60,7 +65,8 @@ function setup() {
 
 function draw() {
     background(220);
-    drawClockLpz(time.value);
+    console.log(time.value);
+    drawClockLpz((time.value != undefined && time.value) ? time.value : parseTime(initTimeValues.hour)+':'+parseTime(initTimeValues.minutes));
 }
 
 function drawClockHand(timeValue, timeMax, handLength, handWidth) {
@@ -86,7 +92,7 @@ function drawClockHand(timeValue, timeMax, handLength, handWidth) {
     }
 }
 
-function drawClockLpz(time) {
+function drawClockLpz( time) {
     let [currentHour, currentMinute] = time.split(":");
     drawClockHand(currentHour, 12, hourLength, hourWidth);
     drawClockHand(currentMinute, 60, minuteLength, minuteWidth);

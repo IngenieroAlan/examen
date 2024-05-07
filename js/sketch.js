@@ -13,8 +13,8 @@ function setup() {
     angleMode(DEGREES);
 
     // Length of the hands
-    hourLength = 40;
-    minuteLength = 60;
+    hourLength = 45;
+    minuteLength = 70;
     secondLength = 80;
 
     // Width of the hands
@@ -68,26 +68,25 @@ function drawClockLpz(time, centerX, centerY) {
     currentHour = (currentHour > 24) ? currentHour - 24 : currentHour;
     currentMinute = parseInt(currentMinute);
 
-    let minuteAngle = map(currentMinute, 0, 60, 0, 360) - 90;
-    let minuteEndX = centerX + minuteLength * cos(minuteAngle);
-    let minuteEndY = centerY + minuteLength * sin(minuteAngle);
-    strokeWeight(3);
-    lineaPP(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
-    
-    
     let secondAngle = map(new Date().getSeconds(), 0, 60, 0, 360) - 90;
     let secondEndX = centerX + secondLength * cos(secondAngle);
     let secondEndY = centerY + secondLength * sin(secondAngle);
-    strokeWeight(4);
+    strokeWeight(3);
+    stroke("red");
     lineaPP(centerX, centerY, parseInt(secondEndX), parseInt(secondEndY));
+    stroke("black");
+
+    let minuteAngle = map(currentMinute, 0, 60, 0, 360) - 90;
+    let minuteEndX = centerX + minuteLength * cos(minuteAngle);
+    let minuteEndY = centerY + minuteLength * sin(minuteAngle);
+    strokeWeight(4);
+    lineaPP(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
 
     let hourAngle = map(currentHour % 12, 0, 12, 0, 360) - 90;
     let hourEndX = centerX + hourLength * cos(hourAngle);
     let hourEndY = centerY + hourLength * sin(hourAngle);
-    strokeWeight(4);
-    stroke("red");
+    strokeWeight(5);
     lineaPP(centerX, centerY, hourEndX, hourEndY);
-    stroke("black");
     algoritmoPM(90, centerX, centerY - 10);
 }
 function drawClockCDMX(time, centerX, centerY) {
@@ -95,23 +94,27 @@ function drawClockCDMX(time, centerX, centerY) {
     currentHour = parseInt(currentHour) + 1;
     currentHour = (currentHour > 24) ? currentHour - 24 : currentHour;
     currentMinute = parseInt(currentMinute);
-
-    let minuteAngle = map(currentMinute, 0, 60, 0, 360) - 90;
-    let minuteEndX = centerX + minuteLength * cos(minuteAngle);
-    let minuteEndY = centerY + minuteLength * sin(minuteAngle);
-    lineaDDA(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
     
     let secondAngle = map(new Date().getSeconds(), 0, 60, 0, 360) - 90;
     let secondEndX = centerX + secondLength * cos(secondAngle);
     let secondEndY = centerY + secondLength * sin(secondAngle);
+    strokeWeight(3);
+    stroke("red");
     lineaDDA(centerX, centerY, parseInt(secondEndX), parseInt(secondEndY));
+    stroke("black");
+
+    let minuteAngle = map(currentMinute, 0, 60, 0, 360) - 90;
+    let minuteEndX = centerX + minuteLength * cos(minuteAngle);
+    let minuteEndY = centerY + minuteLength * sin(minuteAngle);
+    strokeWeight(4);
+    lineaDDA(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
+    
     
     let hourAngle = map(currentHour % 12, 0, 12, 0, 360) - 90;
     let hourEndX = centerX + hourLength * cos(hourAngle);
     let hourEndY = centerY + hourLength * sin(hourAngle);
-    stroke("red");
+    strokeWeight(5);
     lineaDDA(centerX, centerY, hourEndX, hourEndY);
-    stroke("black");
     algoritmoPM(90, centerX, centerY - 10);
 }
 function drawClockBC(time, centerX, centerY) {
@@ -120,26 +123,25 @@ function drawClockBC(time, centerX, centerY) {
     currentHour = (currentHour > 24) ? currentHour - 24 : currentHour;
     currentMinute = parseInt(currentMinute);
 
+    let secondAngle = map(new Date().getSeconds(), 0, 60, 0, 360) - 90;
+    let secondEndX = centerX + secondLength * cos(secondAngle);
+    let secondEndY = centerY + secondLength * sin(secondAngle);
+    strokeWeight(3);
+    stroke("red");
+    lineaBres(centerX, centerY, parseInt(secondEndX), parseInt(secondEndY));
+    stroke("black");
     
     let minuteAngle = map(currentMinute, 0, 60, 0, 360) - 90;
     let minuteEndX = centerX + minuteLength * cos(minuteAngle);
     let minuteEndY = centerY + minuteLength * sin(minuteAngle);
-    strokeWeight(3);
-    lineaBres(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
-    
-    let secondAngle = map(new Date().getSeconds(), 0, 60, 0, 360) - 90;
-    let secondEndX = centerX + secondLength * cos(secondAngle);
-    let secondEndY = centerY + secondLength * sin(secondAngle);
     strokeWeight(4);
-    lineaBres(centerX, centerY, parseInt(secondEndX), parseInt(secondEndY));
+    lineaBres(centerX, centerY, parseInt(minuteEndX), parseInt(minuteEndY));
     
     let hourAngle = map(currentHour % 12, 0, 12, 0, 360) - 90;
     let hourEndX = centerX + hourLength * cos(hourAngle);
     let hourEndY = centerY + hourLength * sin(hourAngle);
-    strokeWeight(4);
-    stroke("red");
+    strokeWeight(5);
     lineaBres(centerX, centerY, parseInt(hourEndX), parseInt(hourEndY));
-    stroke("black");
 
     algoritmoPM(90, centerX, centerY - 10);
 }

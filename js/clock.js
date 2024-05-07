@@ -29,22 +29,6 @@ class Clock {
                 break;
         }
     }
-    /*addSeconds(){
-        if(this.seconds != new Date().getSeconds() ){
-            this.seconds = new Date().getSeconds();
-            if(this.seconds == 0 && this.addSecond == false){
-                this.addSecond = true;
-                if(this.minutes == 60){
-                    this.minutes = 0;
-                    this.hour++;
-                    this.addSecond = false;
-                }
-                this.minutes++;
-                this.addSecond =false;
-            }
-        }
-    }
-    */
     addSeconds() {
         let currentSeconds = new Date().getSeconds();
     
@@ -57,14 +41,15 @@ class Clock {
                     this.minutes = '00';
                     if (this.hour === 23) {
                         this.hour = '00';
+                        this.externalHour = '00:00';
                     } else {
                         this.hour = ('0' + (parseInt(this.hour) + 1)).slice(-2);
+                        this.externalHour = parseTime(parseInt(this.hour)+1)+':'+this.minutes;
                     }
                 } else {
-                    console.log(this.minutes);
-                    this.minutes = ('0' + (parseInt(this.minutes) + 1)).slice(-2);
+                    this.minutes = parseTime(parseInt(this.minutes)+1);
+                    this.externalHour = this.hour+':'+this.minutes;
                 }
-                console.log(this.minutes); //Si se suma pero le vale y lo regresa al valor anterior...
             }
         }
     }
@@ -77,7 +62,6 @@ class Clock {
         switch (this.timezone) {
             case "lpz":
                 if (this.externalHour) {
-                    this.getTime();
                     text(((this.hour<10 && this.hour!=0)?'0'+this.hour:this.hour)
                         +":"+this.minutes+":"
                         +((this.seconds<10)?'0'+this.seconds:this.seconds),
@@ -87,7 +71,6 @@ class Clock {
                 break;
             case "cdmx":
                 if (this.externalHour) {
-                    this.getTime();
                     text(((this.hour<10)?'0'+this.hour:this.hour)
                     +":"+this.minutes+":"
                     +((this.seconds<10)?'0'+this.seconds:this.seconds),
@@ -97,7 +80,6 @@ class Clock {
                 break;
             case "var":
                 if (this.externalHour) {
-                    this.getTime();
                     text(((this.hour<10)?'0'+this.hour:this.hour)
                     +":"+this.minutes+":"
                     +((this.seconds<10)?'0'+this.seconds:this.seconds),
